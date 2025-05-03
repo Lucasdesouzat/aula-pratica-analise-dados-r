@@ -1,64 +1,77 @@
 # ===============================================================
 # 📊 Projeto: Análise de Dados de Acidentes de Trânsito 2024
-# 📁 Script: src/analysis.R
-# 🔗 Dataset: https://raw.githubusercontent.com/AndersonSalata/projeto-integrado-ciencia-de-dados/main/datatran2024.csv
 # ===============================================================
 
-# ===============================================================
-# 1. Instalar pacotes necessários (se ainda não estiverem instalados)
-# ===============================================================
-# install.packages("dplyr")
-# install.packages("ggplot2")
-
-# ===============================================================
-# 2. Carregar bibliotecas
-# ===============================================================
+# 1. Carregar bibliotecas
 library(dplyr)
 library(ggplot2)
 
-# ===============================================================
-# 3. Carregar o conjunto de dados
-# ===============================================================
+# 2. Criar pastas de saída se necessário
+dir.create("outputs/results", showWarnings = FALSE, recursive = TRUE)
+dir.create("outputs/graphs", showWarnings = FALSE, recursive = TRUE)
+
+# 3. Redirecionar saída para arquivo TXT
+sink("outputs/results/analise_saida.txt")
+
+cat("=============================================================\n")
+cat("📊 RELATÓRIO DE ANÁLISE DE DADOS DE ACIDENTES DE TRÂNSITO\n")
+cat("=============================================================\n\n")
+
+# 4. Carregar o dataset com codificação correta
+cat("🔹 Carregando o dataset com encoding 'latin1'...\n\n")
 dados <- read.csv(
   "https://raw.githubusercontent.com/AndersonSalata/projeto-integrado-ciencia-de-dados/main/datatran2024.csv",
   sep = ";",
   fill = TRUE,
-  check.names = FALSE
+  check.names = FALSE,
+  fileEncoding = "latin1"
 )
 
-# ===============================================================
-# 4. Explorar o conjunto de dados
-# ===============================================================
-print(str(dados))     # Estrutura das variáveis
-print(summary(dados)) # Resumo estatístico
-print(head(dados))    # Primeiras linhas do dataset
+# 5. Explorar o dataset
+cat("🔹 Estrutura do Dataset:\n")
+str(dados)
+cat("\n-------------------------------------------------------------\n\n")
 
-# ===============================================================
-# 5. Análise de dados
-# ===============================================================
+cat("🔹 Resumo Estatístico:\n")
+print(summary(dados))
+cat("\n-------------------------------------------------------------\n\n")
 
-# 5.1 Filtrar acidentes sob condição de "Céu Claro"
-dados_claros <- dados %>%
-  filter(condicao_metereologica == "Céu Claro")
+cat("🔹 Primeiras Linhas do Dataset:\n")
+print(head(dados, 5))
+cat("\n=============================================================\n\n")
 
-# 5.2 Contar acidentes por estado
+# 6. Análises Estatísticas
+cat("📌 ANÁLISES ESTATÍSTICAS\n\n")
+
+# 6.1 Estado com maior número de acidentes
+cat("▶️ Estado com maior número de acidentes:\n")
 acidentes_by_state <- dados %>%
   group_by(uf) %>%
   summarise(total = n()) %>%
   arrange(desc(total))
-
-# 5.3 Mostrar o estado com maior número de acidentes
 print(head(acidentes_by_state, 1))
+cat("\n-------------------------------------------------------------\n\n")
 
-# 5.4 Calcular a probabilidade de acidente sob "Céu Claro"
+# 6.2 Probabilidade de acidente em condição de 'Céu Claro'
+cat("▶️ Probabilidade de acidente em condição de 'Céu Claro':\n")
+dados_claros <- dados %>% filter(condicao_metereologica == "Céu Claro")
 probabilidade_ceu_claro <- nrow(dados_claros) / nrow(dados)
-print(paste("Probabilidade de acidente em Céu Claro:", round(probabilidade_ceu_claro, 4)))
+cat(sprintf("Total de acidentes: %d\n", nrow(dados)))
+cat(sprintf("Acidentes com 'Céu Claro': %d\n", nrow(dados_claros)))
+cat(sprintf("Probabilidade: %.4f (%.2f%%)\n",
+            probabilidade_ceu_claro,
+            probabilidade_ceu_claro * 100))
+cat("\n-------------------------------------------------------------\n\n")
 
-# ===============================================================
-# 6. Visualização de dados
-# ===============================================================
+# 6.3 Frequência de acidentes por fase do dia
+cat("▶️ Frequência de Acidentes por Fase do Dia:\n")
+print(table(dados$fase_dia))
+cat("\n=============================================================\n\n")
 
-# 6.1 Criar gráfico: quantidade de acidentes por fase do dia
+# 7. Finalizar redirecionamento
+sink()
+
+# 8. Criar e salvar gráfico
 grafico_fase_dia <- ggplot(dados, aes(x = fase_dia)) +
   geom_bar(fill = "steelblue") +
   labs(
@@ -68,10 +81,10 @@ grafico_fase_dia <- ggplot(dados, aes(x = fase_dia)) +
   ) +
   theme_minimal()
 
-# 6.2 Mostrar o gráfico no console
+# Mostrar gráfico no console
 print(grafico_fase_dia)
 
-# 6.3 Salvar o gráfico em arquivo PNG
+# Salvar gráfico
 ggsave(
   filename = "outputs/graphs/acidentes_fase_dia.png",
   plot = grafico_fase_dia,

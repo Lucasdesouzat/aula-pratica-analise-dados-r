@@ -1,0 +1,165 @@
+=============================================================
+📊 RELATÓRIO DE ANÁLISE DE DADOS DE ACIDENTES DE TRÂNSITO
+=============================================================
+
+🔹 Carregando o dataset com encoding 'latin1'...
+
+🔹 Estrutura do Dataset:
+'data.frame':	60365 obs. of  30 variables:
+ $ id                    : chr  "571789" "571804" "571806" "571818" ...
+ $ data_inversa          : chr  "01/01/2024" "01/01/2024" "01/01/2024" "01/01/2024" ...
+ $ dia_semana            : chr  "segunda-feira" "segunda-feira" "segunda-feira" "segunda-feira" ...
+ $ horario               : chr  "03:56:00" "04:50:00" "04:30:00" "06:30:00" ...
+ $ uf                    : chr  "ES" "PI" "BA" "SE" ...
+ $ br                    : int  101 343 116 101 364 251 116 251 116 262 ...
+ $ km                    : chr  "38" "185" "578" "18" ...
+ $ municipio             : chr  "CONCEICAO DA BARRA" "PIRIPIRI" "BREJOES" "MALHADA DOS BOIS" ...
+ $ causa_acidente        : chr  "Ultrapassagem Indevida" "Manobra de mudança de faixa" "Ingestão de álcool pelo condutor" "Reação tardia ou ineficiente do condutor" ...
+ $ tipo_acidente         : chr  "Colisão lateral sentido oposto" "Colisão frontal" "Colisão frontal" "Saída de leito carroçável" ...
+ $ classificacao_acidente: chr  NA "Com Vítimas Fatais" "Com Vítimas Fatais" "Com Vítimas Feridas" ...
+ $ fase_dia              : chr  "Plena Noite" "Amanhecer" "Plena Noite" "Amanhecer" ...
+ $ sentido_via           : chr  "Crescente" "Decrescente" "Decrescente" "Crescente" ...
+ $ condicao_metereologica: chr  "Céu Claro" "Céu Claro" "Céu Claro" "Céu Claro" ...
+ $ tipo_pista            : chr  "Simples" "Simples" "Simples" "Dupla" ...
+ $ tracado_via           : chr  "Reta" "Reta" "Curva" "Declive;Reta" ...
+ $ uso_solo              : chr  "Não" "Sim" "Não" "Não" ...
+ $ pessoas               : int  3 2 3 2 3 3 4 4 2 1 ...
+ $ mortos                : int  0 1 1 0 0 0 2 0 0 0 ...
+ $ feridos_leves         : int  0 0 0 0 0 1 0 2 1 0 ...
+ $ feridos_graves        : int  1 0 0 1 0 0 0 0 0 0 ...
+ $ ilesos                : int  1 1 1 0 2 1 2 1 0 1 ...
+ $ ignorados             : int  1 0 2 2 1 1 0 3 1 0 ...
+ $ feridos               : int  1 0 0 1 0 1 0 2 1 0 ...
+ $ veiculos              : int  3 2 4 3 3 3 2 5 2 1 ...
+ $ latitude              : chr  "-18,48261" "-4,29603281" "-13,07158302" "-10,35601949" ...
+ $ longitude             : chr  "-39,92379" "-41,76732659" "-39,9611107" "-36,90552235" ...
+ $ regional              : chr  "SPRF-ES" "SPRF-PI" "SPRF-BA" "SPRF-SE" ...
+ $ delegacia             : chr  "DEL04-ES" "DEL02-PI" "DEL03-BA" "DEL02-SE" ...
+ $ uop                   : chr  "UOP02-DEL04-ES" "UOP01-DEL02-PI" "UOP02-DEL03-BA" "UOP02-DEL02-SE" ...
+
+-------------------------------------------------------------
+
+🔹 Resumo Estatístico:
+      id            data_inversa        dia_semana          horario         
+ Length:60365       Length:60365       Length:60365       Length:60365      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+      uf                  br             km             municipio        
+ Length:60365       Min.   :  0.0   Length:60365       Length:60365      
+ Class :character   1st Qu.:101.0   Class :character   Class :character  
+ Mode  :character   Median :158.0   Mode  :character   Mode  :character  
+                    Mean   :209.2                                        
+                    3rd Qu.:319.0                                        
+                    Max.   :495.0                                        
+ causa_acidente     tipo_acidente      classificacao_acidente
+ Length:60365       Length:60365       Length:60365          
+ Class :character   Class :character   Class :character      
+ Mode  :character   Mode  :character   Mode  :character      
+                                                             
+                                                             
+                                                             
+   fase_dia         sentido_via        condicao_metereologica
+ Length:60365       Length:60365       Length:60365          
+ Class :character   Class :character   Class :character      
+ Mode  :character   Mode  :character   Mode  :character      
+                                                             
+                                                             
+                                                             
+  tipo_pista        tracado_via          uso_solo            pessoas      
+ Length:60365       Length:60365       Length:60365       Min.   : 1.000  
+ Class :character   Class :character   Class :character   1st Qu.: 2.000  
+ Mode  :character   Mode  :character   Mode  :character   Median : 2.000  
+                                                          Mean   : 2.589  
+                                                          3rd Qu.: 3.000  
+                                                          Max.   :61.000  
+     mortos         feridos_leves     feridos_graves        ilesos      
+ Min.   : 0.00000   Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.000  
+ 1st Qu.: 0.00000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.000  
+ Median : 0.00000   Median : 1.0000   Median : 0.0000   Median : 1.000  
+ Mean   : 0.08309   Mean   : 0.8728   Mean   : 0.2776   Mean   : 1.043  
+ 3rd Qu.: 0.00000   3rd Qu.: 1.0000   3rd Qu.: 0.0000   3rd Qu.: 1.000  
+ Max.   :23.00000   Max.   :43.0000   Max.   :30.0000   Max.   :60.000  
+   ignorados          feridos         veiculos        latitude        
+ Min.   : 0.0000   Min.   : 0.00   Min.   : 1.000   Length:60365      
+ 1st Qu.: 0.0000   1st Qu.: 1.00   1st Qu.: 1.000   Class :character  
+ Median : 0.0000   Median : 1.00   Median : 2.000   Mode  :character  
+ Mean   : 0.4018   Mean   : 1.15   Mean   : 1.995                     
+ 3rd Qu.: 1.0000   3rd Qu.: 1.00   3rd Qu.: 2.000                     
+ Max.   :33.0000   Max.   :45.00   Max.   :26.000                     
+  longitude           regional          delegacia             uop           
+ Length:60365       Length:60365       Length:60365       Length:60365      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+
+-------------------------------------------------------------
+
+🔹 Primeiras Linhas do Dataset:
+      id data_inversa    dia_semana  horario uf  br  km          municipio
+1 571789   01/01/2024 segunda-feira 03:56:00 ES 101  38 CONCEICAO DA BARRA
+2 571804   01/01/2024 segunda-feira 04:50:00 PI 343 185           PIRIPIRI
+3 571806   01/01/2024 segunda-feira 04:30:00 BA 116 578            BREJOES
+4 571818   01/01/2024 segunda-feira 06:30:00 SE 101  18   MALHADA DOS BOIS
+5 571838   01/01/2024 segunda-feira 05:00:00 MT 364 240       RONDONOPOLIS
+                                            causa_acidente
+1                                   Ultrapassagem Indevida
+2                              Manobra de mudança de faixa
+3                         Ingestão de álcool pelo condutor
+4                 Reação tardia ou ineficiente do condutor
+5 Condutor deixou de manter distância do veículo da frente
+                   tipo_acidente classificacao_acidente    fase_dia sentido_via
+1 Colisão lateral sentido oposto                   <NA> Plena Noite   Crescente
+2                Colisão frontal     Com Vítimas Fatais   Amanhecer Decrescente
+3                Colisão frontal     Com Vítimas Fatais Plena Noite Decrescente
+4      Saída de leito carroçável    Com Vítimas Feridas   Amanhecer   Crescente
+5               Colisão traseira            Sem Vítimas   Pleno dia   Crescente
+  condicao_metereologica tipo_pista  tracado_via uso_solo pessoas mortos
+1              Céu Claro    Simples         Reta      Não       3      0
+2              Céu Claro    Simples         Reta      Sim       2      1
+3              Céu Claro    Simples        Curva      Não       3      1
+4              Céu Claro      Dupla Declive;Reta      Não       2      0
+5              Céu Claro      Dupla         Reta      Não       3      0
+  feridos_leves feridos_graves ilesos ignorados feridos veiculos     latitude
+1             0              1      1         1       1        3    -18,48261
+2             0              0      1         0       0        2  -4,29603281
+3             0              0      1         2       0        4 -13,07158302
+4             0              1      0         2       1        3 -10,35601949
+5             0              0      2         1       0        3 -16,17914141
+     longitude regional delegacia            uop
+1    -39,92379  SPRF-ES  DEL04-ES UOP02-DEL04-ES
+2 -41,76732659  SPRF-PI  DEL02-PI UOP01-DEL02-PI
+3  -39,9611107  SPRF-BA  DEL03-BA UOP02-DEL03-BA
+4 -36,90552235  SPRF-SE  DEL02-SE UOP02-DEL02-SE
+5 -54,78905337  SPRF-MT  DEL02-MT UOP01-DEL02-MT
+
+=============================================================
+
+📌 ANÁLISES ESTATÍSTICAS
+
+▶️ Estado com maior número de acidentes:
+# A tibble: 1 × 2
+  uf    total
+  <chr> <int>
+1 MG     7597
+
+-------------------------------------------------------------
+
+▶️ Probabilidade de acidente em condição de 'Céu Claro':
+Total de acidentes: 60365
+Acidentes com 'Céu Claro': 39333
+Probabilidade: 0.6516 (65.16%)
+
+-------------------------------------------------------------
+
+▶️ Frequência de Acidentes por Fase do Dia:
+
+  Amanhecer   Anoitecer Plena Noite   Pleno dia 
+       2891        3321       21260       32893 
+
+=============================================================
+
